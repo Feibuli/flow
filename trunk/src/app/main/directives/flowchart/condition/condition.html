@@ -1,0 +1,141 @@
+<md-dialog class="event-form-dialog ordinary-dialog" aria-label="set fix approver" style="max-height: 500px;">
+    <form name="form" class="md-inline-form" novalidate>
+        <md-toolbar class="md-accent md-hue-2">
+            <div class="md-toolbar-tools" layout="row" layout-align="space-between center">
+                <span class="title white-fg">设置分支条件</span>
+                <md-button class="md-icon-button" ng-click="vm.closeDialog()" aria-label="Close dialog">
+                    <md-icon md-font-icon="icon-close white-fg"></md-icon>
+                </md-button>
+            </div>
+        </md-toolbar>
+        <md-dialog-content ms-scroll>
+            <div layout-padding class="approver">
+                <div>
+                    <div layout="column" layout-gt-xs="row" ng-repeat="item in vm.conditions" style="position: relative;height: 70px;">
+                        <span style="font-size: 16px;
+                                     position: absolute;
+                                     top: 25px;
+                                     left: -20px;">{{$index+1}}</span>
+                        <md-input-container flex>
+                            <label>请选择条件</label>
+                            <md-select ng-model="item[0].firstValue" ng-required="true"
+                                       ng-model-options="{trackBy: '$value.id'}" ng-change="vm.clear($index)">
+                                <md-option ng-repeat="firstValue in item[0].firstInput" ng-value="firstValue">
+                                    {{firstValue.name}}
+                                </md-option>
+                            </md-select>
+                        </md-input-container>
+                        <md-input-container flex style="padding: 2px 20px;"
+                                            ng-if="item[0].firstValue.type=='singleSelect'">
+                            <label>请选择操作符</label>
+                            <md-select ng-model="item[1].secondValue" ng-required="true"
+                                       ng-model-options="{trackBy: '$value.value'}">
+                                <md-option ng-repeat="operate in vm.operate" ng-value="operate">
+                                    {{operate.name}}
+                                </md-option>
+                            </md-select>
+                        </md-input-container>
+                        <md-input-container flex style="padding: 2px 20px;"
+                                            ng-if="item[0].firstValue.type=='number'||item[0].firstValue.type=='money'">
+                            <label>请选择操作符</label>
+                            <md-select ng-model="item[1].secondValue" ng-required="true"
+                                       ng-model-options="{trackBy: '$value.value'}">
+                                <md-option ng-repeat="operate in vm.operateMultiple" ng-value="operate">
+                                    {{operate.name}}
+                                </md-option>
+                            </md-select>
+                        </md-input-container>
+                        <md-input-container flex ng-if="item[0].firstValue.type=='singleSelect'">
+                            <label>{{item[0].firstValue.name}}</label>
+                            <md-select ng-model="item[2].thirdValue" ng-required="true"
+                                       ng-model-options="{trackBy: '$value.id'}">
+                                <md-option ng-repeat="item in item[0].firstValue.option" ng-value="item">
+                                    {{item.name}}
+                                </md-option>
+                            </md-select>
+                        </md-input-container>
+                        <md-input-container flex
+                                            ng-if="item[0].firstValue.type=='number'||item[0].firstValue.type=='money'">
+                            <label>{{item[0].firstValue.name}}</label>
+                            <input name="{{$index}}" ng-model="item[2].thirdValue"
+                                   ng-pattern="/^[0-9].*$/"
+                                   required placeholder="请输入数字">
+                            <div ng-messages="form[$index].$error" ng-show="form[$index].$touched">
+                                <div ng-message-exp="['pattern']">格式输入有误</div>
+                                <div ng-message="required">
+                                    <span>此项不能为空</span>
+                                </div>
+                            </div>
+                        </md-input-container>
+                        <md-icon md-font-icon="icon-minus-circle" style="color:#fd4b2c;cursor: pointer;"
+                                 ng-click="vm.del($index)"></md-icon>
+                        <!--<md-input-container flex ng-if="!vm.firstValue">
+                            <label>请先选择条件</label>
+                            <input required placeholder="请先选择条件">
+                        </md-input-container>-->
+
+
+                        <!--<div layout="column" layout-gt-xs="row" ng-if="item.type!='singleSelect'">
+                            <md-input-container flex>
+                                <label>请选择条件</label>
+                                <md-select name="{{$index}}" ng-model="type" ng-required="true">
+                                    <md-option ng-repeat="type in vm.firstInput" ng-value="type">
+                                        {{type}}
+                                    </md-option>
+                                </md-select>
+                                <div ng-messages="form[$index].$error" ng-show="form[$index].$touched">
+                                    <div ng-message="required">
+                                        <span>此项不能为空</span>
+                                    </div>
+                                </div>
+                            </md-input-container>
+                            <md-input-container flex ng-if="item.type!='singleSelect'" style="padding: 0 20px;">
+                                <label>请选择操作符</label>
+                                <md-select name="{{$index}}" ng-model="type" ng-required="true">
+                                    <md-option ng-repeat="operate in vm.operate1" ng-value="operate">
+                                        {{operate}}
+                                    </md-option>
+                                </md-select>
+                                <div ng-messages="form[$index].$error" ng-show="form[$index].$touched">
+                                    <div ng-message="required">
+                                        <span>此项不能为空</span>
+                                    </div>
+                                </div>
+                            </md-input-container>
+                            <md-input-container flex ng-if="item.type!='singleSelect'">
+                                <label>{{item.input[0].placeholder}}</label>
+                                <input name="{{$index}}" ng-model="item.model"
+                                       ng-pattern="/^[A-Za-z0-9]+$/"
+                                       required placeholder="请输入一个数字">
+                                <div ng-messages="form[$index].$error" ng-show="form[$index].$touched">
+                                    <div ng-message-exp="['pattern']">格式输入有误</div>
+                                    <div ng-message="required">
+                                        <span>此项不能为空</span>
+                                    </div>
+                                </div>
+                            </md-input-container>
+                        </div>-->
+                    </div>
+                    <div>
+                        <md-button aria-label="ADD" ng-click="vm.add()" style="text-align:center">
+                            <md-icon md-font-icon="icon-plus" style="color:rgb(247,147,31)"><span
+                                    style="font-size:16px;position:relative;top:-4px">添加更多条件</span></md-icon>
+                        </md-button>
+                    </div>
+                </div>
+            </div>
+
+        </md-dialog-content>
+
+        <md-dialog-actions layout="row" layout-align="space-between center">
+            <md-button ng-click="vm.saveEvent()" class="save-button md-accent md-raised white-fg" aria-label="SAVE"
+                       ng-disabled="form.$invalid">
+                保存
+            </md-button>
+            <md-button ng-click="vm.closeDialog()" class="md-accent md-raised white-fg" aria-label="CANCEL">
+                取消
+            </md-button>
+        </md-dialog-actions>
+    </form>
+
+</md-dialog>

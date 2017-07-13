@@ -1,0 +1,8 @@
+<div layout="column" layout-align="center center">
+    <md-button class="md-icon-button navigation-fold-toggle"
+               hide show-gt-sm aria-label="Toggle navigation fold"
+               ng-click="vm.toggleMsNavigationFolded()">
+        <md-icon class="s18" md-font-icon="icon-menu"></md-icon>
+    </md-button>
+</div>
+<ms-navigation class="scrollable" folded="vm.folded" ms-scroll="vm.msScrollOptions"></ms-navigation>

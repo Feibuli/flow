@@ -1,0 +1,26 @@
+#flowchart-approver {
+  .approver {
+    &-tips {
+      top: 69px;
+      left: 131px;
+      position: absolute;
+      font-size: 20px;
+      line-height: 20px;
+      color: #d3d3d3;
+    }
+    &-icon {
+      display: block;
+      width: 118px;
+      height: 68px;
+      &-1 {
+        background: url(../../../../assets/images/flow/singleapprover.png) center center no-repeat;
+      }
+      &-2 {
+        background: url(../../../../assets/images/flow/moreapprover.png) center center no-repeat;
+      }
+      &-3 {
+        background: url(../../../../assets/images/flow/oneapprover.png) center center no-repeat;
+      }
+    }
+  }
+}

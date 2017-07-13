@@ -1,0 +1,46 @@
+<md-dialog class="event-form-dialog" aria-label="{{vm.dialogTitle}}">
+    <form class="event-form" name="form" class="md-inline-form" novalidate>
+
+        <md-toolbar class="md-accent md-hue-2">
+            <div class="md-toolbar-tools" layout="row" layout-align="space-between center">
+                <span class="title">{{vm.dialogConfig.title}}</span>
+                <md-button class="md-icon-button" ng-click="vm.closeDialog()" aria-label="Close dialog">
+                    <md-icon md-font-icon="icon-close"></md-icon>
+                </md-button>
+            </div>
+        </md-toolbar>
+
+        <md-dialog-content ms-scroll>
+            <div class="md-title padding-8">下载模版<span class="md-subhead ml-5">选择您需要的模版下载即可</span> </div>
+
+            <div layout="column" layout-gt-xs="row" layout-align="start center">
+                <md-input-container class="md-block" flex>
+                    <label>选择模版</label>
+                    <md-select ng-model="vm.template">
+                        <md-option ng-repeat="data in vm.templates" value="{{data}}">{{data.name}}</md-option>
+                    </md-select>
+                </md-input-container>
+                <md-button class="md-raised md-accent" ng-disabled="angular.isObject(vm.template)" ng-click="vm.download()">
+                    下载模版
+                </md-button>
+            </div>
+            <div class="md-title padding-8">上传文件<span class="md-subhead ml-5">选择您已填充的数据模版上传即可</span> </div>
+            <div class="md-subhead padding-8"></div>
+            <div layout="column" layout-gt-xs="column">
+                <md-button class="md-raised md-accent">
+                    上传模版
+                </md-button>
+            </div>
+        </md-dialog-content>
+
+        <md-dialog-actions layout="row" layout-align="space-between center">
+            <md-button ng-click="vm.saveEvent()" class="save-button md-accent md-raised" aria-label="SAVE"
+                       ng-disabled="form.$invalid || form.$pristine">
+                导入数据
+            </md-button>
+            <md-button ng-click="vm.closeDialog()" class="md-accent md-raised" aria-label="CANCEL">
+                取消
+            </md-button>
+        </md-dialog-actions>
+    </form>
+</md-dialog>

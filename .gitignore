@@ -1,0 +1,8 @@
+/.idea
+/.vscode
+/target
+/trunk/.tmp
+/trunk/node_modules
+/trunk/bower_components
+/trunk/e2e
+/trunk/dist

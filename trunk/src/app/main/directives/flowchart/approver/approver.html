@@ -1,0 +1,119 @@
+<md-dialog class="event-form-dialog ordinary-dialog" aria-label="set fix approver" id="flowchart-approver">
+    <form name="form" class="md-inline-form" novalidate>
+        <md-toolbar class="md-accent md-hue-2">
+            <div class="md-toolbar-tools" layout="row" layout-align="space-between center">
+                <span class="title white-fg">设置审批人</span>
+                <md-button class="md-icon-button" ng-click="vm.closeDialog()" aria-label="Close dialog">
+                    <md-icon md-font-icon="icon-close white-fg"></md-icon>
+                </md-button>
+            </div>
+        </md-toolbar>
+        <md-dialog-content ms-scroll>
+            <div layout-padding class="approver">
+                <md-radio-group ng-model="vm.approveType" layout="row" layout-align="space-between center"
+                                ng-style="{'font-size':'14px'}">
+                    <md-radio-button value="0">单人审批
+                    </md-radio-button>
+                    <md-icon md-font-icon="icon-help-circle" class="approver-tips">
+                        <md-tooltip md-direction="top">每个审批节点只提交给一个审批人或审批职位，用户可以从多个备选审批人或审批职位下多个人中选择。</md-tooltip>
+                    </md-icon>
+                    <md-radio-button value="1">多人审批会签
+                    </md-radio-button>
+                    <md-icon md-font-icon="icon-help-circle" class="approver-tips" style="left: 393px">
+                        <md-tooltip md-direction="top">每个审批节点同时提交给多个审批人，被提交的所有人都同意才能进入下一个审批节点。</md-tooltip>
+                    </md-icon>
+                    <md-radio-button value="2">多人接收一人审批
+                    </md-radio-button>
+                    <md-icon md-font-icon="icon-help-circle" class="approver-tips" style="left: 682px">
+                        <md-tooltip md-direction="top">每个审批节点同时提交给多个审批人，任何一个审批人同意就能进入下一个审批节点。</md-tooltip>
+                    </md-icon>
+                </md-radio-group>
+                <div layout="row" layout-align="space-between center">
+                    <span class="approver-icon approver-icon-1"></span>
+                    <span class="approver-icon approver-icon-2"></span>
+                    <span class="approver-icon approver-icon-3"></span>
+
+                </div>
+                <div>
+                    <md-radio-group flex="40" ng-model="vm.assigneeType" layout="row" layout-align="space-between center"
+                                    ng-style="{'font-size':'14px'}">
+                        <md-radio-button value="0">审批人
+                        </md-radio-button>
+                        <md-radio-button value="1" ng-if="vm.approveType==0">审批职位
+                        </md-radio-button>
+                    </md-radio-group>
+                    <div flex="60"></div>
+                </div>
+                <div style="height: 80px">
+
+                    <!--<md-input-container>
+                        <label>Vegetables</label>
+                        <md-select ng-model="selectedVegetables"
+                                   md-on-close="clearSearchTerm()"
+                                   data-md-container-class="selectdemoSelectHeader"
+                                   multiple>
+                            <md-select-header class="demo-select-header">
+                                <input ng-model="searchTerm"
+                                       type="search"
+                                       placeholder="Search for a vegetable.."
+                                       class="demo-header-searchbox md-text">
+                            </md-select-header>
+                            <md-optgroup label="vegetables">
+                                <md-option ng-value="vegetable" ng-repeat="vegetable in vegetables |
+                  filter:searchTerm">{{vegetable}}</md-option>
+                            </md-optgroup>
+                        </md-select>
+                    </md-input-container>-->
+
+
+                    <md-chips ng-model="vm.selectedStaffs" md-autocomplete-snap
+                              ng-required="true"
+                              ng-if="vm.assigneeType==0"
+                              md-transform-chip="vm.transformChip($chip)"
+                              md-require-match="true">
+                        <md-autocomplete
+                                md-selected-item="vm.selectedItem"
+                                md-search-text="vm.searchText"
+                                md-items="item in vm.querySearch(vm.searchText)"
+                                md-item-text="item.name"
+                                placeholder="输入姓名进行查询">
+                            <span md-highlight-text="vm.searchText">{{item.name}}</span>
+                        </md-autocomplete>
+                        <md-chip-template>
+                            <span>{{$chip.name}}</span>
+                        </md-chip-template>
+                    </md-chips>
+
+
+                    <wis-search-input ng-style="{'min-width':'250px'}"
+                                      ng-if="vm.assigneeType==1"
+                                      wis-name="{{vm.elem.name}}"
+                                      wis-required="{{vm.elem.required}}"
+                                      wis-form-elem="true"
+                                      wis-model="vm.elem.model"
+                                      data="vm.elem.data"
+                                      selected-model="vm.elem.selectedElem"
+                                      selected-callback="vm.elem.selectedCallBack"
+                                      name-field="{{vm.elem.nameField}}"
+                                      value-field="{{vm.elem.valueField}}"
+                                      title="{{vm.elem.title}}"
+                                      placeholder="{{vm.elem.placeholder}}"></wis-search-input>
+
+
+                </div>
+            </div>
+
+        </md-dialog-content>
+
+        <md-dialog-actions layout="row" layout-align="space-between center">
+            <md-button ng-click="vm.saveEvent()" class="save-button md-accent md-raised white-fg" aria-label="SAVE"
+                       ng-disabled="form.$invalid||(vm.assigneeType!='1'&&vm.selectedStaffs.length==0)">
+                保存
+            </md-button>
+            <md-button ng-click="vm.closeDialog()" class="md-accent md-raised white-fg" aria-label="CANCEL">
+                取消
+            </md-button>
+        </md-dialog-actions>
+    </form>
+
+</md-dialog>

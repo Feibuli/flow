@@ -1,0 +1,38 @@
+<md-dialog class="event-form-dialog ordinary-dialog" aria-label="select please" id="add-staff"
+           ng-style="{'width':'auto'}">
+    <form name="form" class="md-inline-form" novalidate>
+        <md-toolbar class="md-accent md-hue-2">
+            <div class="md-toolbar-tools" layout="row" layout-align="space-between center">
+                <span class="title white-fg">请选择</span>
+                <md-button class="md-icon-button" ng-click="vm.closeDialog()" aria-label="Close dialog">
+                    <md-icon md-font-icon="icon-close white-fg"></md-icon>
+                </md-button>
+            </div>
+        </md-toolbar>
+        <md-dialog-content ms-scroll>
+            <div aria-label="search staff">
+                <wis-select-tree flex ng-style="{'min-width':'350px'}"
+                                 data="vm.elem.data"
+                                 wis-placeholder="{{vm.elem.placeholder}}"
+                                 wis-title="{{vm.elem.title}}"
+                                 wis-name="{{vm.elem.name}}"
+                                 name-field="{{vm.elem.nameField}}"
+                                 is-radio="{{vm.elem.isRadio}}"
+                                 wis-model="vm.elem.model"
+                                 value-compare="{{vm.elem.valueCompare}}"
+                                 value-field="{{vm.elem.valueField}}"
+                                 wis-required="{{vm.elem.required}}"></wis-select-tree>
+            </div>
+        </md-dialog-content>
+
+        <md-dialog-actions layout="row" layout-align="space-between center">
+            <md-button ng-click="vm.saveEvent()" class="save-button md-accent md-raised white-fg" aria-label="SAVE"
+                       ng-disabled="!vm.response || form.$invalid">
+                保存{{!vm.response?'中':''}}
+            </md-button>
+            <md-button ng-click="vm.closeDialog()" class="md-accent md-raised white-fg" aria-label="CANCEL">
+                取消
+            </md-button>
+        </md-dialog-actions>
+    </form>
+</md-dialog>

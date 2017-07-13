@@ -1,0 +1,88 @@
+<div layout="row" layout-align="start center">
+    <div layout="row" layout-align="start center" flex>
+
+        <div class="logo" layout="row" layout-align="start center">
+            <img src="assets/images/logo.png">
+        </div>
+        <div class="toolbar-separator"></div>
+        <md-menu-bar id="cut-menu">
+            <md-menu md-position-mode="left bottom">
+                <md-button class="cut-button" ng-click="$mdOpenMenu()"
+                           aria-label="cut model">
+                    <div layout="row" layout-align="start center">
+                        <span class="current-model">{{vm.moduleSelect}}</span>
+                        <md-icon md-font-icon="icon-chevron-down current-model-icon"
+                                 class="icon s16"></md-icon>
+                    </div>
+                </md-button>
+                <md-menu-content width="3">
+                    <md-menu-item class="md-indent">
+                        <!--<md-icon md-font-icon="" class="icon"></md-icon>-->
+                        <md-button ng-click="vm.moduleChange('智慧公交')">智慧公交</md-button>
+                    </md-menu-item>
+                    <md-menu-item class="md-indent">
+                        <!--<md-icon md-font-icon="" class="icon"></md-icon>-->
+                        <md-button ng-click="vm.moduleChange('ERP系统')">ERP系统</md-button>
+                    </md-menu-item>
+                    <md-menu-item class="md-indent">
+                        <!--<md-icon md-font-icon="" class="icon"></md-icon>-->
+                        <md-button ng-click="vm.moduleChange('油补平台')">油补平台</md-button>
+                    </md-menu-item>
+                    <md-menu-item class="md-indent">
+                        <!--<md-icon md-font-icon="" class="icon"></md-icon>-->
+                        <md-button ng-click="vm.moduleChange('已开通应用')">已开通应用</md-button>
+                    </md-menu-item>
+                </md-menu-content>
+            </md-menu>
+        </md-menu-bar>
+        <div class="toolbar-separator"></div>
+        <md-button id="navigation-toggle" class="md-icon-button" ng-click="vm.toggleSidenav('navigation')"
+                   hide-gt-sm aria-label="Toggle navigation">
+            <md-icon md-font-icon="icon-menu" class="icon"></md-icon>
+        </md-button>
+
+        <ms-shortcuts></ms-shortcuts>
+
+        <div class="toolbar-separator"></div>
+    </div>
+
+    <div layout="row" layout-align="start center">
+        <md-progress-circular id="toolbar-progress" ng-if="$root.loadingProgress" class="md-accent"
+                              md-mode="indeterminate" md-diameter="32">
+        </md-progress-circular>
+        <md-button class="md-icon-button" ng-click="vm.fullScreen()">
+            <md-icon md-font-icon="icon-crop-free"></md-icon>
+        </md-button>
+        <md-menu-bar id="user-menu">
+            <md-menu md-position-mode="left bottom">
+                <!--<md-button class="user-button"-->
+                <md-button class="user-button" ng-click="$mdOpenMenu()"
+                           aria-label="User settings">
+                    <div layout="row" layout-align="space-between center">
+                        <div class="avatar-wrapper">
+                            <img md-menu-align-target class="avatar" src="assets/images/avatars/profile.jpg">
+                        </div>
+                        <span class="username" hide-sm>{{vm.displayName()}}</span>
+                        <md-icon md-font-icon="icon-chevron-down"
+                                 class="icon s16" hide-sm></md-icon>
+                    </div>
+                </md-button>
+
+                <md-menu-content width="3">
+                    <md-menu-item class="md-indent">
+                        <md-button ng-click="vm.openExamineAndApprove()">审批</md-button>
+                    </md-menu-item>
+                    <md-menu-item class="md-indent">
+                        <md-icon md-font-icon="icon-logout" class="icon"></md-icon>
+                        <md-button ng-click="vm.logout()">退出登录</md-button>
+                    </md-menu-item>
+                </md-menu-content>
+            </md-menu>
+        </md-menu-bar>
+        <!--<div class="toolbar-separator"></div>-->
+        <!--<ms-search-bar on-search="vm.search(query)" on-result-click="vm.searchResultClick(item)"-->
+        <!--debounce="300"></ms-search-bar>-->
+        <!--<div class="toolbar-separator"></div>-->
+        <!--<div class="toolbar-separator"></div>-->
+    </div>
+</div>

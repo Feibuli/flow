@@ -1,0 +1,76 @@
+.ws-sidenav-wrap {
+  position: absolute;
+  display: -webkit-flex;
+  display: flex;
+  flex-direction: row;
+  font-size: 12px;
+  float: left;
+  right: -0px;
+  display: inline-block;
+  height: 100%;
+  .contents {
+    height: 100%;
+    padding: 0;
+    display: -webkit-flex;
+    display: flex;
+    flex-direction: row;
+  }
+  .nav {
+    flex-grow: 0;
+    height: 100%;
+    line-height: 50px;
+    flex-grow: 0;
+    flex-shrink: 0;
+    flex-basis: 50px;
+    word-break: keep-all;
+    md-icon {
+      font-size: 20px;
+    }
+  }
+  .nav > div {
+    font-size: 14px;
+    text-align: center;
+    cursor: pointer;
+    border-bottom: 1px solid rgba(225, 225, 225, 0.5);
+    box-shadow: -1px 1px 1px 0px rgba(0, 0, 0, 0.329412);
+    position: relative;
+    z-index: 10;
+    padding: 0 10px;
+    color: white;
+  }
+  .nav .active {
+    box-shadow: inset 3px 0px 0px #F6921E, 0px 0px 0px rgba(0, 0, 0, 0.14), 0px 0px 0px 0px rgba(0, 0, 0, 0.12);
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.5);
+  }
+  .sidenav_content {
+    flex-grow: 1;
+    flex-grow: 1;
+    flex-shrink: 1;
+    flex-basis: auto;
+    background: #FFFFFF;
+    position: relative;
+    overflow: hidden;
+    z-index: 0;
+  }
+  ng-transclude {
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    display: -webkit-flex;
+    display: flex;
+    flex-direction: row;
+  }
+  .tab {
+    flex-item: 1;
+    position: relative;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+  }
+  ::-webkit-scrollbar {
+    width: 0px;
+  }
+}

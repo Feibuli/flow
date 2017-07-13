@@ -1,0 +1,293 @@
+<md-dialog id="{{vm.pattern == 'default'?'base-dialog':vm.pattern}}" class="event-form-dialog" aria-label="New Message">
+    <!--页签-->
+    <form class="md-inline-form tabs" novalidate ng-if="vm.type == 'tabs'">
+        <md-toolbar class="md-accent md-hue-2">
+            <div class="md-toolbar-tools" layout="row" layout-align="space-between center">
+                <span class="title white-fg">{{vm.title}}</span>
+                <md-button class="md-icon-button" ng-click="vm.closeDialog()" aria-label="Close dialog">
+                    <md-icon md-font-icon="icon-close white-fg"></md-icon>
+                </md-button>
+            </div>
+        </md-toolbar>
+        <md-dialog-content ms-scroll>
+            <md-tabs md-dynamic-height md-no-ink>
+                <md-tab ng-repeat="elems in ::vm.pageData" label="{{elems.title}}">
+                    <div flex class="input-half">
+                        <md-checkbox ng-model="elems.isCheck" ng-click="elems.allCheckFun(elems)" class="h4"
+                                     aria-label="allCheckDesc"
+                                     md-ink-ripple>
+                            {{elems.allCheckDesc}}
+                        </md-checkbox>
+                    </div>
+                    <div flex class="input-half" ng-repeat="elem in ::elems.data">
+                        <md-checkbox ng-model="elem.isCheck" class="h4"
+                                     ng-click="elems.singtonCheckFun(elem.isCheck,elems)"
+                                     aria-label="title"
+                                     md-ink-ripple>
+                            {{elem.title}}
+                        </md-checkbox>
+                    </div>
+                </md-tab>
+            </md-tabs>
+        </md-dialog-content>
+
+        <md-dialog-actions>
+            <md-button ng-click="vm.saveEvent()"
+                       ng-disabled="!vm.pageData[0].useState && !vm.pageData[1].useState"
+                       class="save-button md-accent md-raised white-fg">
+                保存
+            </md-button>
+            <md-button ng-click="vm.closeDialog()" class="md-accent md-raised white-fg" aria-label="CANCEL">
+                取消
+            </md-button>
+        </md-dialog-actions>
+    </form>
+
+    <!--添加编辑-->
+    <form name="eventForm" class="md-inline-form" novalidate ng-if="vm.type != 'tabs'">
+        <md-toolbar class="md-accent md-hue-2">
+            <div class="md-toolbar-tools" layout="row" layout-align="space-between center">
+                <span class="title white-fg">{{vm.title}}</span>
+                <md-button class="md-icon-button" ng-click="vm.closeDialog()" aria-label="Close dialog">
+                    <md-icon md-font-icon="icon-close white-fg"></md-icon>
+                </md-button>
+            </div>
+        </md-toolbar>
+        <md-dialog-content ms-scroll id="md-dialog-common">
+            <div class="input-content">
+                <div flex class="input-half">
+                    <div layout="column" layout-gt-xs="row" ng-repeat="elems in ::vm.pageData"
+                         ng-show="vm.hideOrShow($index)">
+                        <element class="md-block {{elem.wisClass}}"
+                                 ng-repeat="elem in ::elems"
+                                 ng-switch="elem.type" flex>
+                            <div ng-switch-when="MD_TITLE"
+                                 class="title-tips {{elem.class}}">
+                                {{elem.title}}
+                            </div>
+                            <md-input-container
+                                    ng-switch-when="MD_INPUT"
+                                    ng-switch="{{elem.autoFocus}}">
+                                <label>{{elem.title}}</label>
+                                <input name="elem{{elem.name}}" ng-model="elem.model"
+                                       placeholder="{{elem.placeholder}}"
+                                       ng-class="'wis-dialogs-'+elem.name"
+                                       ng-required="{{elem.required}}"
+                                       ng-readonly="elem.readonly"
+                                       ng-switch-when="true"
+                                       md-autofocus
+                                       md-minlength="{{elem.minLength}}"
+                                       minlength="{{elem.minLength}}"
+                                       md-maxlength="{{elem.maxLength}}"
+                                       maxlength="{{elem.maxLength}}"
+                                       ng-pattern="elem.pattern">
+                                <input name="elem{{elem.name}}" ng-model="elem.model"
+                                       placeholder="{{elem.placeholder}}"
+                                       ng-class="'wis-dialogs-'+elem.name"
+                                       ng-required="{{elem.required}}"
+                                       ng-readonly="elem.readonly"
+                                       ng-switch-default
+                                       md-minlength="{{elem.minLength}}"
+                                       minlength="{{elem.minLength}}"
+                                       md-maxlength="{{elem.maxLength}}"
+                                       maxlength="{{elem.maxLength}}"
+                                       ng-pattern="elem.pattern">
+                                <div ng-messages="eventForm['elem'+elem.name].$error"
+                                     ng-show="eventForm['elem'+elem.name].$touched">
+                                    <div ng-message-exp="['pattern']">{{elem.patternError || '输入格式有误'}}</div>
+                                    <div ng-message-exp="['minlength']">{{elem.minLengthError || '字符长度不足'}}</div>
+                                    <div ng-message="required">
+                                        <span>此项不能为空</span>
+                                    </div>
+                                </div>
+                            </md-input-container>
+                            <md-input-container
+                                    ng-switch-when="MD_SELECT"
+                                    ng-switch="{{elem.autoFocus}}">
+                                <label>{{elem.title}}</label>
+                                <md-select name="elem{{elem.name}}" ng-model="elem.model" placeholder="{{elem.title}}"
+                                           ng-change="elem.changeFn(vm.pageData)"
+                                           ng-required="{{elem.required}}"
+                                           md-autofocus
+                                           ng-disabled="!elem.states || elem.states.length == 0"
+                                           ng-switch-when="true">
+                                    <md-option ng-value="state.value" ng-repeat="state in elem.states">{{state.name}}
+                                    </md-option>
+                                </md-select>
+                                <md-select name="elem{{elem.name}}" ng-model="elem.model" placeholder="{{elem.title}}"
+                                           ng-change="elem.changeFn(vm.pageData)"
+                                           ng-required="{{elem.required}}"
+                                           ng-disabled="!elem.states || elem.states.length == 0"
+                                           ng-switch-default>
+                                    <md-option ng-value="state.value" ng-repeat="state in elem.states">{{state.name}}
+                                    </md-option>
+                                </md-select>
+                                <div ng-messages="eventForm['elem'+elem.name].$error"
+                                     ng-show="eventForm['elem'+elem.name].$touched">
+                                    <div ng-message="required">
+                                        <span>此项不能为空</span>
+                                    </div>
+                                </div>
+                            </md-input-container>
+                            <md-input-container
+                                    ng-switch-when="MD_RADIO">
+                                <md-radio-group ng-model="elem.model">
+                                    <md-radio-button ng-repeat="state in elem.states"
+                                                     ng-value="state.value"
+                                                     class="{{'radio-group-'+$index}}"
+                                                     aria-label="{{ state.name }}">
+                                        {{ state.name }}
+                                    </md-radio-button>
+                                </md-radio-group>
+                            </md-input-container>
+                            <div class="wis-date-picker datepicker"
+                                 ng-switch-when="MD_DATE"
+                                 ng-switch="{{elem.autoFocus}}">
+                                <div layout="row" layout-align="space between" flex>
+                                    <label ng-class="{'required':elem.required}" class="md-date">{{elem.title}}</label>
+                                    <md-datepicker name="elem{{elem.name}}"
+                                                   ng-required="{{elem.required}}"
+                                                   md-open-on-focus
+                                                   ng-focus="elem.focusFn(elems,vm.pageData)"
+                                                   md-min-date="elem.minData"
+                                                   md-max-date="elem.maxData"
+                                                   ng-model="elem.model"
+                                                   ng-switch-when="true"></md-datepicker>
+                                    <md-datepicker name="elem{{elem.name}}"
+                                                   ng-required="{{elem.required}}"
+                                                   ng-focus="elem.focusFn(elems,vm.pageData)"
+                                                   md-min-date="elem.minData"
+                                                   md-max-date="elem.maxData"
+                                                   ng-model="elem.model"
+                                                   ng-switch-default></md-datepicker>
+                                </div>
+                            </div>
+                            <md-input-container class="wis-date-picker"
+                                                ng-switch-when="MD_DATE_1"
+                                                ng-switch="{{elem.autoFocus}}">
+                                <label ng-class="{'required':elem.required}" class="md-date">{{elem.title}}</label>
+                                <md-datepicker name="elem{{elem.name}}"
+                                               ng-required="{{elem.required}}"
+                                               md-open-on-focus
+                                               ng-focus="elem.focusFn(vm.pageData)"
+                                               ng-model="elem.model"
+                                               md-min-date="elem.minData"
+                                               md-max-date="elem.maxData"
+                                               ng-switch-when="true"
+                                               required></md-datepicker>
+                                <md-datepicker name="elem{{elem.name}}"
+                                               ng-required="{{elem.required}}"
+                                               ng-focus="elem.focusFn(vm.pageData)"
+                                               ng-model="elem.model"
+                                               md-min-date="elem.minData"
+                                               md-max-date="elem.maxData"
+                                               ng-switch-default></md-datepicker>
+                                <div ng-messages="eventForm['elem'+elem.name].$error"
+                                     ng-show="eventForm['elem'+elem.name].$touched">
+                                    <div ng-message="required">
+                                        <span>此项不能为空</span>
+                                    </div>
+                                </div>
+                            </md-input-container>
+                            <div class="wis-date-picker input wis-time-picker"
+                                 ng-switch-when="MD_TIME"
+                                 layout="row"
+                                 layout-align="space-between">
+                                <label ng-class="{'required':elem.required}" class="md-date">{{elem.title}}</label>
+                                <wis-timepicker ng-model="elem.model">
+                                    <input readonly
+                                           name="elem{{elem.name}}"
+                                           type="text"
+                                           ng-model="elem.model"
+                                           ng-required="{{elem.required}}">
+                                    <span class="icon-alarm"></span>
+                                </wis-timepicker>
+                            </div>
+                            <div ng-switch-when="WIS_SEARCH">
+                                <wis-search-input
+                                        wis-name="elem{{elem.name}}"
+                                        wis-required="{{elem.required}}"
+                                        wis-form-elem="true"
+                                        wis-model="elem.model"
+                                        data="elem.data"
+                                        selected-model="elem.selectedElem"
+                                        selected-callback="elem.selectedCallBack"
+                                        name-field="{{elem.nameField}}"
+                                        value-field="{{elem.valueField}}"
+                                        title="{{elem.title}}"
+                                        placeholder="{{elem.placeholder}}">
+                                </wis-search-input>
+                            </div>
+                            <div ng-switch-when="WIS_BUTTON"
+                                 class="wis-button-wrap"
+                                 ng-class="{'wis-button-open':elem.isOpen}"
+                                 layout="row"
+                                 layout-align="end center">
+                                <span class="md-accent-fg" ng-click="vm.lookMoreInfo(elem,elems)">
+                                    {{!elem.isOpen?elem.title:elem.subhead}}
+                                </span>
+                                <span class="md-accent-fg icon-chevron-double-down wis-button-icon"
+                                      ng-class="{'icon-reverse':elem.isOpen}"></span>
+                            </div>
+                            <div ng-switch-when="WIS_LEAVING"></div>
+                            <div ng-switch-when="WIS_SELECT_TREE">
+                                <wis-select-tree data="elem.data"
+                                                 wis-placeholder="{{elem.placeholder}}"
+                                                 wis-title="{{elem.title}}"
+                                                 wis-name="{{elem.name}}"
+                                                 name-field="{{elem.nameField}}"
+                                                 is-radio="{{elem.isRadio}}"
+                                                 wis-model="elem.model"
+                                                 value-compare="{{elem.valueCompare}}"
+                                                 value-field="{{elem.valueField}}"
+                                                 wis-required="{{elem.required}}"
+                                                 wis-form-elem="true"></wis-select-tree>
+                            </div>
+                            <div ng-switch-when="WIS_SELECT_CITY">
+                                <wis-select-city
+                                        wis-name="{{elem.name}}"
+                                        wis-placeholder="{{elem.placeholder}}"
+                                        wis-title="{{elem.title}}"
+                                        wis-form-elem="true"
+                                        wis-required="{{elem.required}}"
+                                        wis-model="elem.model"></wis-select-city>
+                            </div>
+                            <md-input-container ng-switch-when="MD_SELECT_ADD">
+                                <label>{{elem.title}}</label>
+                                <md-select name="elem{{elem.name}}" ng-model="elem.model" placeholder="{{elem.title}}"
+                                           ng-change="elem.changeFn(vm.pageData)"
+                                           ng-required="{{elem.required}}">
+                                    <md-option ng-value="state.value" ng-repeat="state in elem.states">{{state.name}}
+                                    </md-option>
+                                    <md-option class="md-accent-fg"
+                                               ng-value=""
+                                               ng-click="vm.operation(elem.additionalOperation,$event)">
+                                        <div ng-if="!vm.wisOperationState">
+                                            <span class="icon-plus"></span>
+                                            {{elem.operationPlaceholder}}
+                                        </div>
+                                    </md-option>
+                                </md-select>
+                                <div ng-messages="eventForm['elem'+elem.name].$error"
+                                     ng-show="eventForm['elem'+elem.name].$touched">
+                                    <div ng-message="required">
+                                        <span>此项不能为空</span>
+                                    </div>
+                                </div>
+                            </md-input-container>
+                        </element>
+                    </div>
+                </div>
+            </div>
+        </md-dialog-content>
+        <md-dialog-actions ng-show="vm.dialogData.type != 'custom'">
+            <md-button ng-click="vm.saveEvent()" class="save-button md-accent md-raised white-fg"
+                       ng-disabled="!vm.response ||eventForm.$invalid">
+                {{vm.pattern=='mes' ? '发送':'保存'}}{{!vm.response?'中':''}}
+            </md-button>
+            <md-button ng-click="vm.closeDialog()" class="md-accent md-raised white-fg" aria-label="CANCEL">
+                取消
+            </md-button>
+        </md-dialog-actions>
+    </form>
+</md-dialog>
