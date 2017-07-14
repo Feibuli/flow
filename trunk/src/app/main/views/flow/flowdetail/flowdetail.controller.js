@@ -6,9 +6,9 @@
 
     angular
         .module('app.flow')
-        .controller('H5FlowApplyControler', H5FlowApplyController);
+        .controller('FlowDetailController', FlowDetailController);
 
-    function H5FlowApplyController() {
+    function FlowDetailController() {
 
     }
 })();

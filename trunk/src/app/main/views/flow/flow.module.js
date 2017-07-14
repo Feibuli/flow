@@ -1,5 +1,5 @@
 /**
- * Created by HL on 2017/5/11.
+ * Created by HL on 2017/7/13.
  */
 (function () {
     'use strict';
@@ -15,8 +15,8 @@
                 url: '/flowapply',
                 views: {
                     'content@app': {
-                        templateUrl: 'app/main/views/flow/flowapply/h5.html',
-                        controller: 'H5Controller as vm'
+                        templateUrl: 'app/main/views/flow/flowapply/flowapply.html',
+                        controller: 'FlowApplyController as vm'
                     }
                 },
                 //在路由中使用service查询数据
@@ -26,8 +26,8 @@
                 url: '/flowdetail',
                 views: {
                     'content@app': {
-                        templateUrl: 'app/main/views/flow/h5/h5.html',
-                        controller: 'H5Controller as vm'
+                        templateUrl: 'app/main/views/flow/flowdetail/flowdetail.html',
+                        controller: 'FlowDetailController as vm'
                     }
                 },
                 resolve: {}

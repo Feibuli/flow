@@ -1,28 +1,7 @@
-#h5 {
+#flowapply {
   $ppr: 75;
   background: #f3f3f3;
-  //width: 750px;
-  //height: 1210px;
   font-family: "Microsoft YaHei";
-  .row {
-    display: flex;
-    flex-direction: row;
-  }
-
-  .column {
-    display: flex;
-    flex-direction: column;
-  }
-
-  .center {
-    justify-content: center;
-    align-items: center;
-  }
-
-  .space-between {
-    justify-content: space-between;
-    align-items: center;
-  }
 
   img {
     background-size: 100%;
@@ -60,7 +39,8 @@
     &.assignee {
       min-height: 296rem/$ppr;
       padding: 29rem/$ppr 40rem/$ppr;
-      div {
+      margin-bottom: 150rem/$ppr;
+      > div {
         margin: 36rem/$ppr 14rem/$ppr;
         img {
           width: 90rem/$ppr;
@@ -70,7 +50,10 @@
           width: 47rem/$ppr;
           height: 7rem/$ppr;
         }
-        span {
+        .line-box {
+          height: 90rem/$ppr;
+        }
+        > span {
           margin: 0 20rem/$ppr;
         }
         .icon {
@@ -95,6 +78,25 @@
     &.textarea {
       min-height: 159rem/$ppr;
       padding: 31rem/$ppr 40rem/$ppr;
+    }
+  }
+
+  footer {
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+    background: #ffffff;
+    border-top: 1rem/$ppr solid #d8d8d8;
+    height: 106rem/$ppr;
+    div {
+      background: #fc8714;
+      border-radius: 8rem/$ppr;
+      width: 661rem/$ppr;
+      height: 80rem/$ppr;
+    }
+    span {
+      font-size: 28rem/$ppr;
+      color: #ffffff;
     }
   }
 
