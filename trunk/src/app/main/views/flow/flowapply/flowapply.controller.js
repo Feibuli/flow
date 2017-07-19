@@ -12,7 +12,7 @@
         var vm = this;
         vm.click = click;
         vm.approveList = [];
-        vm.singleSelectList = [];
+        // vm.singleSelectList = null;
 
 
         //与OC交互的所有JS方法都要放在此处注册，才能调用通过JS调用OC或者让OC调用这里的JS
@@ -36,7 +36,7 @@
         setupWebViewJavascriptBridge(function (bridge) {
             // 表单配置
             bridge.registerHandler('testJavascriptHandler', function (data, responseCallback) {
-                vm.flowCfg = angular.fromJson(data);
+                vm.flowCfg = data;
                 vm.flowCfg.formJson = angular.fromJson(vm.flowCfg.formJson);
                 window.cbk();
             });
@@ -49,21 +49,38 @@
             });
             // 单选
             bridge.registerHandler('HandlerForSingleSelect', function (data, responseCallback) {
-                $scope.$apply(function() {
-                    vm.singleSelectList.push(data);
+                $scope.$apply(function () {
+                    angular.forEach(vm.flowCfg.formJson, function (item) {
+                        if (item.type == 'singleSelect') {
+                            item.model = data.singleValue;
+                        }
+                    });
                 });
                 window.cbk();
             });
+            // 时间选择器
+            bridge.registerHandler('testJavascriptHandlerForTime', function (data, responseCallback) {
+                $scope.$apply(function () {
+                    angular.forEach(vm.flowCfg.formJson, function (item) {
+                        if (item.type == 'dateRange') {
+                            data.sign == 'startTime' ? item.startTime = data.timer : item.endTime = data.timer;
+                        }
+                    })
+                });
+            });
             // 原生调用
-            vm.callNative = function (type) {
+            vm.callNative = function (type, sign, options) {
                 // type: 1.单选 2.时间选择器 3.联系人 4.职位
                 var obj = {};
                 switch (type) {
                     case 1:
-                        obj = {'listArry': ['事假', '病假'], 'type': '1'}
+                        var options = options.map(function (item) {
+                            return item.name;
+                        });
+                        obj = {'listArry': options, 'type': '1'};
                         break;
                     case 2:
-                        obj = {'type':'2'}
+                        obj = {'type': '2', 'sign': sign}
                         break;
                     case 3:
                         obj = {'corpId': '10000', 'type': '3'};

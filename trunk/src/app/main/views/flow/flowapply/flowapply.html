@@ -1,34 +1,46 @@
 <div flex id="flowapply">
+    <span>iiii</span><input type="text" flex-offset="25">
     <div ng-repeat="item in vm.flowCfg.formJson">
         <!--输入框-->
-        <section class="input" layout="row" layout-align="space-between center"
-                 ng-if="item.type=='text'||item.type=='number'">
+        <section class="input" ng-if="item.type=='text'||item.type=='number'" layout="row"
+                 layout-align="start center">
             <span>{{item.input[0].placeholder}}</span>
-            <input type="text" placeholder="{{item.input[1].placeholder}}"
-                   maxlength="{{item.input[0].limit}}">
+            <input type="text" flex
+                   ng-model="item.model"
+                   flex-offset="25"
+                   placeholder="{{item.input[1].placeholder}}">
+            <!--maxlength="{{item.input[0].limit}}"-->
         </section>
         <!--日期区间框-->
         <section class="dateRange" ng-if="item.type=='dateRange'">
-            <div layout="row" layout-align="space-between center" ng-click="vm.callNative(2)">
-                <span>{{item.input[0].placeholder}}</span>
-                <span>请选择</span>
+            <div layout="row" layout-align="space-between center" ng-click="vm.callNative(2,'startTime')">
+                <div layout="row" layout-align="start center" flex="70">
+                    <span>{{item.input[0].placeholder}}</span>
+                    <span flex-offset="25">{{item.startTime?item.startTime:'请选择'}}</span>
+                </div>
                 <img src="app/main/views/flow/images/fanhui01@2x.png">
             </div>
             <span class="line" layout="row"></span>
-            <div layout="row" layout-align="space-between center" ng-click="vm.callNative(2)">
-                <span>{{item.input[1].placeholder}}</span>
-                <span>请选择</span>
+            <div layout="row" layout-align="space-between center" ng-click="vm.callNative(2,'endTime')">
+                <div layout="row" layout-align="start center" flex="70">
+                    <span>{{item.input[1].placeholder}}</span>
+                    <span flex-offset="25">{{item.endTime?item.endTime:'请选择'}}</span>
+                </div>
                 <img src="app/main/views/flow/images/fanhui01@2x.png">
             </div>
         </section>
         <!--单选框-->
-        <section layout="row" layout-align="space-between center" ng-if="item.type=='singleSelect'" ng-click="vm.callNative(1)">
-            <span>{{item.input[0].placeholder}}</span>
-            <span>{{vm.singleSelectList.length==0?'请选择':vm.singleSelectList}}</span>
+        <section layout="row" layout-align="space-between center" ng-if="item.type=='singleSelect'"
+                 ng-click="vm.callNative(1,$index,item.options)">
+            <div layout="row" layout-align="start center" flex="70">
+                <span>{{item.input[0].placeholder}}</span>
+                <span flex-offset="25">{{item.model?item.model:'请选择'}}</span>
+            </div>
             <img src="app/main/views/flow/images/fanhui01@2x.png">
         </section>
         <!--多行文本框-->
-        <textarea class="textarea" placeholder="请输入备注说明" rows="5" ng-if="item.type=='textarea'"></textarea>
+        <textarea class="textarea" placeholder="请输入备注说明" rows="5" ng-if="item.type=='textarea'"
+                  ng-model="item.model"></textarea>
     </div>
 
     <section class="assignee">
