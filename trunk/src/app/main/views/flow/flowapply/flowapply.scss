@@ -7,34 +7,17 @@
     background-size: 100%;
   }
 
-  header {
-    height: 88rem/$ppr;
-    font-size: 28rem/$ppr;
-    border-bottom: 1rem/$ppr solid #dfdfdf;
-    background: #ffffff;
-    color: #494b4c;
-    padding: 0 29rem/$ppr;
-    img {
-      width: 21rem/$ppr;
-      height: 36rem/$ppr;
-    }
-  }
-
-  section {
+  section,.textarea {
     background: #ffffff;
     font-size: 26rem/$ppr;
-    margin: 36rem/$ppr 10rem/$ppr;
     border-top: 1rem/$ppr solid #d9d9d9;
     border-bottom: 1rem/$ppr solid #d9d9d9;
-    margin: 20rem/$ppr 0;
+    margin-top: 20rem/$ppr;
     padding: 0 40rem/$ppr;
     min-height: 88rem/$ppr;
     img {
       width: 15rem/$ppr;
       height: 26rem/$ppr;
-    }
-    span:nth-child(2) {
-      font-size: 28rem/$ppr;
     }
     &.assignee {
       min-height: 296rem/$ppr;
@@ -49,19 +32,19 @@
         .line {
           width: 47rem/$ppr;
           height: 7rem/$ppr;
+          margin: 0 20rem/$ppr;
         }
         .line-box {
           height: 90rem/$ppr;
-        }
-        > span {
-          margin: 0 20rem/$ppr;
         }
         .icon {
           width: 88rem/$ppr;
           height: 90rem/$ppr;
         }
       }
-
+      .person {
+        margin-bottom: 20rem/$ppr;
+      }
     }
     &.dateRange {
       padding-right: 28rem/$ppr;
@@ -75,10 +58,14 @@
         background: #e2e2e2;
       }
     }
-    &.textarea {
-      min-height: 159rem/$ppr;
-      padding: 31rem/$ppr 40rem/$ppr;
-    }
+  }
+
+  .textarea {
+    min-height: 159rem/$ppr;
+    padding: 31rem/$ppr 40rem/$ppr;
+    overflow: hidden;
+    resize: none;
+    width: 100%
   }
 
   footer {
