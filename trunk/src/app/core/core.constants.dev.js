@@ -16,8 +16,8 @@
         .constant('VehUrl', 'http://172.16.102.150:8093/veh/')
         // .constant('VehUrl', 'http://172.16.101.144:8080/')                                    //车辆
         .constant('CorpUrl', 'http://172.16.102.150:8091/corp/')                                 //企业
-        // .constant('FlowUrl', 'http://172.16.101.124:9090/zhcx_flow/')
-        .constant('FlowUrl', 'http://flow.123cx.com:9090/zhcx_flow/')                            //审批流
+        .constant('FlowUrl', 'http://172.16.101.124:9090/flow/')
+        // .constant('FlowUrl', 'http://flow.123cx.com/flow/')                            //审批流
         .constant('BaseUrl', 'http://172.16.102.101:8900/wisdombus-contrFoller/')                 //原始智慧公交
         .constant('AuthorityUrl', 'http://172.16.102.101:8900/authority-controller/')            //原始组织员工
         .constant('UploadUrl', 'http://172.16.102.150:8091/corp/enterprise/upload')

@@ -7,6 +7,10 @@
     background-size: 100%;
   }
 
+  input {
+    //width: 100rem/$ppr;
+  }
+
   section,.textarea {
     background: #ffffff;
     font-size: 26rem/$ppr;

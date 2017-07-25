@@ -14,7 +14,11 @@
             .state('app.flowapply', {
                 url: '/flowapply',
                 views: {
-                    'content@app': {
+                    'main@':{
+                        templateUrl: 'app/core/layouts/content-only.html',
+                        controller: 'MainController'
+                    },
+                    'content@app.flowapply': {
                         templateUrl: 'app/main/views/flow/flowapply/flowapply.html',
                         controller: 'FlowApplyController as vm'
                     }
