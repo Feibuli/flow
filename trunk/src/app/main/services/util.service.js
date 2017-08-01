@@ -284,6 +284,31 @@
         }
 
         /*end cookie end*/
+        /*start 与移动端通信 start*/
+        function setupWebViewJavascriptBridge(callback) {
+            //Android使用
+            if (window.WebViewJavascriptBridge) {
+                callback(WebViewJavascriptBridge)
+            } else {
+                document.addEventListener('WebViewJavascriptBridgeReady', function () {
+                        callback(WebViewJavascriptBridge)
+                    }, false
+                );
+            }
+            // ios使用
+            if (window.WVJBCallbacks) {
+                return window.WVJBCallbacks.push(callback);
+            }
+            window.WVJBCallbacks = [callback];
+            var WVJBIframe = document.createElement('iframe');
+            WVJBIframe.style.display = 'none';
+            WVJBIframe.src = 'wvjbscheme://__BRIDGE_LOADED__';
+            document.documentElement.appendChild(WVJBIframe);
+            setTimeout(function () {
+                document.documentElement.removeChild(WVJBIframe)
+            }, 0)
+        }
+        /*end 与移动端通信 end*/
         return {
             bind: bind,
             sortByKey: sortByKey,
@@ -298,7 +323,8 @@
             judgeFullScreen: judgeFullScreen,
             localStorage: new LocalStorage(),
             handleDate: new HandleDate(),
-            cookie: new cookie()
+            cookie: new cookie(),
+            setupWebViewJavascriptBridge: setupWebViewJavascriptBridge
         }
     }
 })();

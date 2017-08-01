@@ -1,7 +1,7 @@
 <div flex id="flowapply">
     <div ng-repeat="item in vm.flowCfg.formJson">
         <!--文本输入框-->
-        <section class="input" ng-if="item.type==text" layout="row"
+        <section class="input" ng-if="item.type=='text'" layout="row"
                  layout-align="start center">
             <span flex="40">{{item.input[0].placeholder}}</span>
             <input type="text" flex
@@ -21,8 +21,8 @@
             <!--maxlength="{{item.input[0].limit}}"-->
         </section>
         <!--日期框-->
-        <section class="date" ng-if="item.type=='dateRange'" layout="row" layout-align="space-between center"
-                 ng-click="vm.callNative(5,'date')">
+        <section class="date" ng-if="item.type=='date'" layout="row" layout-align="space-between center"
+                 ng-click="vm.callNative(5,item.id,'date')">
             <div layout="row" layout-align="start center" flex>
                 <span flex="40">{{item.input[0].placeholder}}</span>
                 <span flex="40">{{item.model?item.model:'请选择'}}{{item.required&&!item.model?'(必填)':''}}</span>
@@ -31,7 +31,7 @@
         </section>
         <!--日期区间框-->
         <section class="dateRange" ng-if="item.type=='dateRange'">
-            <div layout="row" layout-align="space-between center" ng-click="vm.callNative(5,'startTime')">
+            <div layout="row" layout-align="space-between center" ng-click="vm.callNative(5,item.id,'startTime')">
                 <div layout="row" layout-align="start center" flex>
                     <span flex="40">{{item.input[0].placeholder}}</span>
                     <span flex="40">{{item.startTime?item.startTime:'请选择'}}{{item.required&&!item.startTime?'(必填)':''}}</span>
@@ -39,7 +39,7 @@
                 <img src="app/main/views/flow/images/fanhui01@2x.png">
             </div>
             <span class="line" layout="row"></span>
-            <div layout="row" layout-align="space-between center" ng-click="vm.callNative(5,'endTime')">
+            <div layout="row" layout-align="space-between center" ng-click="vm.callNative(5,item.id,'endTime')">
                 <div layout="row" layout-align="start center" flex>
                     <span flex="40">{{item.input[1].placeholder}}</span>
                     <span flex="40">{{item.endTime?item.endTime:'请选择'}}{{item.required&&!item.endTime?'(必填)':''}}</span>
@@ -49,7 +49,7 @@
         </section>
         <!--单选框-->
         <section layout="row" layout-align="space-between center" ng-if="item.type=='singleSelect'"
-                 ng-click="vm.callNative(1,$index,item.options)">
+                 ng-click="vm.callNative(1,item.id,$index,item.options)">
             <div layout="row" layout-align="start center" flex>
                 <span flex="40">{{item.input[0].placeholder}}</span>
                 <span flex="40">{{item.model?item.model:'请选择'}}{{item.required&&!item.model?'(必填)':''}}</span>
@@ -58,7 +58,7 @@
         </section>
         <!--多选框-->
         <section layout="row" layout-align="space-between center" ng-if="item.type=='mutilSelect'"
-                 ng-click="vm.callNative(1,$index,item.options)">
+                 ng-click="vm.callNative(6,item.id,$index,item.options)">
             <div layout="row" layout-align="start center" flex>
                 <span flex="40">{{item.input[0].placeholder}}</span>
                 <span flex="40">{{item.model?item.model:'请选择'}}{{item.required&&!item.model?'(必填)':''}}</span>
@@ -66,7 +66,7 @@
             <img src="app/main/views/flow/images/fanhui01@2x.png">
         </section>
         <!--多行文本框-->
-        <textarea class="textarea" placeholder="{{item.required?'请输入备注说明(必填)':'请输入备注说明'}}" rows="5"
+        <textarea class="textarea" placeholder="{{item.required?item.input[1].placeholder+'(必填)':item.input[1].placeholder}}" rows="5"
                   ng-if="item.type=='textarea'"
                   ng-model="item.model"></textarea>
     </div>
