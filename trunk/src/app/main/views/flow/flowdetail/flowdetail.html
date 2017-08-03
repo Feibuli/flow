@@ -1,5 +1,95 @@
-<div id="flowdetail">
-    <section>
-
+<div id="flowdetail" style="height: 100%;overflow: auto">
+    <section class="flow-detail">
+        <div flex layout="column">
+            <div layout="row" class="flow-detail-head">
+                <img src="app/main/views/flow/images/touxiang@2x.png">
+                <div layout="column">
+                    <span>张三的加油申请</span>
+                    <span class="wait">待王五审批</span>
+                </div>
+            </div>
+            <div layout="column" class="flow-detail-body">
+                <span>加油额度：500元</span>
+                <span>开始时间：2017-01-01 14:00</span>
+                <span>结束时间：2017-01-01 14:00</span>
+            </div>
+        </div>
     </section>
+
+    <section class="flow-step">
+        <div flex layout="column">
+            <span>审批流程</span>
+            <div layout="column">
+                <div>
+                    <div layout="row" layout-align="space-between end">
+                        <div layout="row" class="flow-step-left">
+                            <div>
+                                <img src="app/main/views/flow/images/touxiang@2x.png">
+                                <img src="app/main/views/flow/images/faqi@2x.png" class="icon">
+                            </div>
+                            <div layout="column">
+                                <span>张三</span>
+                                <span style="color:#32c1f2;">发起申请</span>
+                            </div>
+                        </div>
+                        <span>2017-01-01 11:00</span>
+                    </div>
+                    <div class="flow-step-line"><img src="app/main/views/flow/images/suxian@2x.png"></div>
+                </div>
+                <div>
+                    <div layout="row" layout-align="space-between end">
+                        <div layout="row" class="flow-step-left">
+                            <div>
+                                <img src="app/main/views/flow/images/touxiang@2x.png">
+                                <img src="app/main/views/flow/images/yitongyi@2x.png" class="icon">
+                            </div>
+                            <div layout="column">
+                                <span>李四</span>
+                                <span class="pass">已同意</span>
+                            </div>
+                        </div>
+                        <span>2017-01-01 11:00</span>
+                    </div>
+                    <div layout="row" class="flow-step-comment"><span>好的，同意。</span></div>
+                    <div class="flow-step-line"><img src="app/main/views/flow/images/suxian@2x.png"></div>
+                </div>
+                <!--<div layout="row" layout-align="space-between end">
+                    <div layout="row" class="flow-step-left">
+                        <img src="app/main/views/flow/images/touxiang@2x.png">
+                        <div layout="column">
+                            <span>赵四</span>
+                            <span class="fail">已驳回</span>
+                        </div>
+                    </div>
+                    <span>2017-01-01 11:00</span>
+                </div>
+                <div class="flow-step-line"><img src="app/main/views/flow/images/suxian@2x.png"></div>-->
+                <div>
+                    <div layout="row" layout-align="space-between end">
+                        <div layout="row" class="flow-step-left">
+                            <div>
+                                <img src="app/main/views/flow/images/touxiang@2x.png">
+                                <img src="app/main/views/flow/images/shenpizhong@2x.png" class="icon">
+                            </div>
+                            <div layout="column">
+                                <span>王五</span>
+                                <span class="wait">审核中</span>
+                            </div>
+                        </div>
+                        <span class="wait">已等待4小时57分钟</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="flow-comment">
+        <textarea placeholder="请输入审批意见(非必填)" rows="5" flex></textarea>
+    </section>
+
+    <footer layout="row" layout-align="center center">
+        <div flex layout="row" layout-align="center center"><img src="app/main/views/flow/images/tongyi@2x.png"></div>
+        <div></div>
+        <div flex layout="row" layout-align="center center"><img src="app/main/views/flow/images/bohui@2x.png"></div>
+    </footer>
 </div>

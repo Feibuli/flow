@@ -133,7 +133,9 @@
         })
 
         function saveEvent() {
-            return formValidate() ? true : false;
+            if(!formValidate()) {
+              return;
+            }
             dataFormat();
             alert(formValidate());
             FlowApplyService.applyFlow(vm.data).then(function (res) {

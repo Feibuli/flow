@@ -2,10 +2,121 @@
   $ppr: 75;
   background: #f3f3f3;
   font-family: "Microsoft YaHei";
+  color: #666666;
+  padding-bottom: 106rem/$ppr;
 
-  img {
-    background-size: 100%;
+  @mixin img($width, $height) {
+    img {
+      background-size: 100%;
+      width: $width;
+      height: $height;
+    }
   }
 
+  .wait {
+    color: #fc8714;
+  }
+
+  .pass {
+    color: #75ca5b;
+  }
+
+  .fail {
+    color: #FC5414;
+  }
+
+  font-size: 24rem/$ppr;
+
+  section {
+    background: #ffffff;
+    border: 1rem/$ppr solid #d9d9d9;
+    padding: 0 70rem/$ppr;
+    margin-bottom: 14rem/$ppr;
+  }
+
+  .flow {
+    &-detail {
+      > div {
+        padding: 40rem/$ppr 0;
+      }
+      &-head {
+        @include img(88rem/$ppr, 90rem/$ppr);
+        > div {
+          margin-left: 25rem/$ppr;
+          span:nth-child(1) {
+            font-size: 28rem/$ppr;
+            color: #333333;
+            margin-bottom: 11rem/$ppr;
+          }
+        }
+      }
+      &-body {
+        margin-top: 34rem/$ppr;
+        span {
+          margin-bottom: 18rem/$ppr;
+        }
+      }
+    }
+    &-step {
+      > div {
+        padding: 30rem/$ppr 0 70rem/$ppr 0;
+        > div {
+          margin-top: 37rem/$ppr;
+        }
+      }
+      &-left {
+        > div:nth-child(1) {
+          position: relative;
+          @include img(88rem/$ppr, 90rem/$ppr);
+          img.icon {
+            width: 36rem/$ppr;
+            height: 36rem/$ppr;
+            position: absolute;
+            bottom: -5rem/$ppr;
+            right: -4rem/$ppr;
+          }
+        }
+        > div:nth-child(2) {
+          margin-left: 34rem/$ppr;
+          span:nth-child(1) {
+            font-size: 32rem/$ppr;
+            color: #333333;
+            margin-bottom: 7rem/$ppr;
+          }
+        }
+      }
+      &-line {
+        margin: 14rem/$ppr 0 21rem/$ppr 39rem/$ppr;
+        @include img(7rem/$ppr, 50rem/$ppr);
+      }
+      &-comment {
+        padding-left: 124rem/$ppr;
+      }
+    }
+    &-comment {
+      textarea {
+        resize: none;
+        width: 100%;
+        padding: 19rem/$ppr 0;
+      }
+    }
+  }
+
+  footer {
+    width: 100%;
+    background: #ffffff;
+    border: 1rem/$ppr solid #d8d8d8;
+    height: 106rem/$ppr;
+    position: fixed;
+    bottom: 0;
+    div:nth-child(2) {
+      background: #d8d8d8;
+      width: 2rem/$ppr;
+      height: 46rem/$ppr;
+    }
+    div:nth-child(1), div:nth-child(3) {
+      @include img(98rem/$ppr, 40rem/$ppr)
+    }
+  }
 
 }
