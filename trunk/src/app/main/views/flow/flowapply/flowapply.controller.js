@@ -105,7 +105,7 @@
                         obj = {'type': '2', 'id': id, 'sign': sign}
                         break;
                     case 3:
-                        obj = {'type': '3', 'corpId': '215'};
+                        obj = {'type': '3', 'corpId': '250'};
                         break;
                     case 4:
                         break;
@@ -136,6 +136,10 @@
             if(!formValidate()) {
               return;
             }
+            if(vm.approveList.length == 0) {
+                vm.showToast('请选择审批人');
+                return;
+            }
             dataFormat();
             alert(formValidate());
             FlowApplyService.applyFlow(vm.data).then(function (res) {
@@ -148,8 +152,8 @@
         function dataFormat() {
             vm.data = {
                 flowCfgCode: vm.flowCfg.code, // 'flow_1166'
-                corpId: 215,
-                userId: 115,
+                corpId: 250,
+                userId: 102878,
                 nextAssigneeIds: '',
                 formData: {},
             };
@@ -222,6 +226,7 @@
                         return false;
                     }
                 }
+                return true;
             }
         }
 

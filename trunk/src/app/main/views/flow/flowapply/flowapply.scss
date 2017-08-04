@@ -12,7 +12,7 @@
     //width: 100rem/$ppr;
   }
 
-  section,.textarea {
+  section {
     background: #ffffff;
     font-size: 26rem/$ppr;
     border-top: 1rem/$ppr solid #d9d9d9;
@@ -63,15 +63,18 @@
         background: #e2e2e2;
       }
     }
+    &.textarea {
+      padding: 31rem/$ppr 40rem/$ppr;
+      > textarea {
+        min-height: 159rem/$ppr;
+        overflow: hidden;
+        resize: none;
+        width: 100%
+      }
+    }
   }
 
-  .textarea {
-    min-height: 159rem/$ppr;
-    padding: 31rem/$ppr 40rem/$ppr;
-    overflow: hidden;
-    resize: none;
-    width: 100%
-  }
+
 
   footer {
     width: 100%;

@@ -10,7 +10,8 @@
         .constant('OrgUrl', 'http://itbus.123cx.com:8092/org/') //组织地址，对应的msApiProvider注册方法orgRegister
         .constant('VehUrl', 'http://itbus.123cx.com:8093/veh/') //车辆地址，对应的msApiProvider注册方法vehRegister
         .constant('CorpUrl', 'http://itbus.123cx.com:8091/corp/') //企业地址，对应的msApiProvider注册方法corpRegister
-        .constant('FlowUrl', 'http://flow.example.com:9090/zhcx_flow/')   //审批流，对应的msApiProvider注册方法flowRegister
+        // .constant('FlowUrl', 'http://flow.example.com:9090/zhcx_flow/')   //审批流，对应的msApiProvider注册方法flowRegister
+        .constant('FlowUrl', 'http://172.16.101.124:8098/flow/')   //审批流，对应的msApiProvider注册方法flowRegister
         .constant('UploadUrl', 'http://itbus.123cx.com:8091/corp/enterprise/upload')//图片上传地址
         .constant('LoginUrl', 'https://cas.123cx.com/cas/login?service=http://uc.123cx.com:8090/uc/cas') //登录地址
         .constant('LogoutUrl', 'https://cas.123cx.com/cas?service=http://uc.123cx.com:8090/uc/logout')//注销地址

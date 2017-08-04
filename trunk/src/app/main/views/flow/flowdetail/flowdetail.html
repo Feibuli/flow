@@ -2,16 +2,14 @@
     <section class="flow-detail">
         <div flex layout="column">
             <div layout="row" class="flow-detail-head">
-                <img src="app/main/views/flow/images/touxiang@2x.png">
+                <img src="app/main/views/flow/images/touxiang@2x.png" flex="none">
                 <div layout="column">
-                    <span>张三的加油申请</span>
-                    <span class="wait">待王五审批</span>
+                    <span>{{vm.validList.title}}</span>
+                    <span ng-class="{'0':'wait','1':'pass','2':'fail'}[vm.validList.status]">{{{'0':'审核中','1':'已通过','2':'被驳回','3':'已撤回'}[vm.validList.status]}}</span>
                 </div>
             </div>
             <div layout="column" class="flow-detail-body">
-                <span>加油额度：500元</span>
-                <span>开始时间：2017-01-01 14:00</span>
-                <span>结束时间：2017-01-01 14:00</span>
+                <span ng-repeat="item in vm.validList.formJsonValue">{{item.name+'：'+item.value}}</span>
             </div>
         </div>
     </section>
@@ -20,23 +18,24 @@
         <div flex layout="column">
             <span>审批流程</span>
             <div layout="column">
-                <div>
+                <div ng-repeat="item in vm.validList.steps">
                     <div layout="row" layout-align="space-between end">
                         <div layout="row" class="flow-step-left">
                             <div>
                                 <img src="app/main/views/flow/images/touxiang@2x.png">
-                                <img src="app/main/views/flow/images/faqi@2x.png" class="icon">
+                                <img src="app/main/views/flow/images/{{{'0':'faqi','1':'yitongyi','2':'yijujue','3':'yijujue'}[item.status]}}@2x.png" class="icon">
                             </div>
                             <div layout="column">
-                                <span>张三</span>
-                                <span style="color:#32c1f2;">发起申请</span>
+                                <span>{{item.assigneeName}}</span>
+                                <span ng-class="{'0':'start','1':'pass','2':'fail','3':'fail'}[item.status]">{{{'0':'发起申请','1':'已通过','2':'被驳回','3':'已撤回'}[item.status]}}</span>
                             </div>
                         </div>
-                        <span>2017-01-01 11:00</span>
+                        <span>{{item.createTime|date: 'yyyy-MM-dd HH:mm:ss'}}</span>
                     </div>
-                    <div class="flow-step-line"><img src="app/main/views/flow/images/suxian@2x.png"></div>
+                    <div layout="row" class="flow-step-comment"><span>{{item.content.remark}}</span></div>
+                    <div class="flow-step-line" ng-if="$index!=vm.validList.steps.length-1"><img src="app/main/views/flow/images/suxian@2x.png"></div>
                 </div>
-                <div>
+                <!--<div>
                     <div layout="row" layout-align="space-between end">
                         <div layout="row" class="flow-step-left">
                             <div>
@@ -52,7 +51,7 @@
                     </div>
                     <div layout="row" class="flow-step-comment"><span>好的，同意。</span></div>
                     <div class="flow-step-line"><img src="app/main/views/flow/images/suxian@2x.png"></div>
-                </div>
+                </div>-->
                 <!--<div layout="row" layout-align="space-between end">
                     <div layout="row" class="flow-step-left">
                         <img src="app/main/views/flow/images/touxiang@2x.png">
@@ -64,7 +63,8 @@
                     <span>2017-01-01 11:00</span>
                 </div>
                 <div class="flow-step-line"><img src="app/main/views/flow/images/suxian@2x.png"></div>-->
-                <div>
+                <div ng-if="vm.validList.status=='0'">
+                    <div class="flow-step-line"><img src="app/main/views/flow/images/suxian@2x.png"></div>
                     <div layout="row" layout-align="space-between end">
                         <div layout="row" class="flow-step-left">
                             <div>
@@ -72,11 +72,11 @@
                                 <img src="app/main/views/flow/images/shenpizhong@2x.png" class="icon">
                             </div>
                             <div layout="column">
-                                <span>王五</span>
-                                <span class="wait">审核中</span>
+                                <span>{{vm.validList.currentAssignee}}</span>
+                                <span class="wait">{{vm.validList.approveType=='1'?'会签':'审核'}}中</span>
                             </div>
                         </div>
-                        <span class="wait">已等待4小时57分钟</span>
+                        <span class="wait">已等待{{vm.validList.waitTime}}</span>
                     </div>
                 </div>
             </div>
@@ -84,12 +84,18 @@
     </section>
 
     <section class="flow-comment">
-        <textarea placeholder="请输入审批意见(非必填)" rows="5" flex></textarea>
+        <textarea placeholder="请输入审批意见(非必填)" rows="5" flex ng-model="vm.comment"></textarea>
     </section>
 
-    <footer layout="row" layout-align="center center">
-        <div flex layout="row" layout-align="center center"><img src="app/main/views/flow/images/tongyi@2x.png"></div>
+    <footer layout="row" layout-align="center center" ng-if="vm.type=='2'">
+        <div flex layout="row" layout-align="center center" ng-click="vm.agreeOrDisagree('agree')"><img src="app/main/views/flow/images/tongyi@2x.png"></div>
         <div></div>
-        <div flex layout="row" layout-align="center center"><img src="app/main/views/flow/images/bohui@2x.png"></div>
+        <div flex layout="row" layout-align="center center" ng-click="vm.agreeOrDisagree('disAgree')"><img src="app/main/views/flow/images/bohui@2x.png"></div>
+    </footer>
+
+    <footer layout="row" layout-align="center center" ng-if="vm.type=='1'">
+        <div flex layout="row" layout-align="center center" ng-click="vm.quickOrCancel('pressSbToCheck')"><img src="app/main/views/flow/images/cuiban@2x.png"></div>
+        <div></div>
+        <div flex layout="row" layout-align="center center" ng-click="vm.quickOrCancel('terminateApplyFlow')"><img src="app/main/views/flow/images/chehui@2x.png"></div>
     </footer>
 </div>

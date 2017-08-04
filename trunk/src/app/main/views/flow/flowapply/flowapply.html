@@ -66,9 +66,11 @@
             <img src="app/main/views/flow/images/fanhui01@2x.png">
         </section>
         <!--多行文本框-->
-        <textarea class="textarea" placeholder="{{item.required?item.input[1].placeholder+'(必填)':item.input[1].placeholder}}" rows="5"
-                  ng-if="item.type=='textarea'"
-                  ng-model="item.model"></textarea>
+        <section layout="row" class="textarea" ng-if="item.type=='textarea'">
+            <div flex="40"><span>{{item.input[0].placeholder}}</span></div>
+            <textarea placeholder="{{item.required?item.input[1].placeholder+'(必填)':item.input[1].placeholder}}" rows="5"
+                      ng-model="item.model"></textarea>
+        </section>
     </div>
 
     <section class="assignee">
