@@ -15,12 +15,14 @@
 
         // 接收原生数据
         Util.setupWebViewJavascriptBridge(function (bridge) {
-            // 入口类型
+            // 入口类型 touchTpye 1.我发起的 2.待我处理 3.抄送我的
             bridge.registerHandler('JavascriptHandlerTouchTpye', function (data, responceCallback) {
+                data = angular.fromJson(data);
                 vm.type = angular.fromJson(data.touchTpye);
             });
             // 详情配置
             bridge.registerHandler('testJavascriptHandler', function (data, responseCallback) {
+                data = angular.fromJson(data);
                 getDetail(data);
                 window.cbk();
             });

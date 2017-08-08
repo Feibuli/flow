@@ -24,6 +24,7 @@
             });
             // 联系人
             bridge.registerHandler('testJavascriptHandlerForPes', function (data, responseCallback) {
+                data = angular.fromJson(data);
                 $scope.$apply(function () {
                     for (var i = 0; i < vm.approveList.length; i++) {
                         var obj = vm.approveList[i];
@@ -38,6 +39,7 @@
             });
             // 单选
             bridge.registerHandler('HandlerForSingleSelect', function (data, responseCallback) {
+                data = angular.fromJson(data);
                 $scope.$apply(function () {
                     angular.forEach(vm.flowCfg.formJson, function (item) {
                         if (item.id == data.id) {
@@ -49,6 +51,7 @@
             });
             // 多选
             bridge.registerHandler('HandlerForMutilSelect', function (data, responseCallback) {
+                data = angular.fromJson(data);
                 $scope.$apply(function () {
                     angular.forEach(vm.flowCfg.formJson, function (item) {
                         if (item.id == data.id) {
@@ -60,6 +63,7 @@
             });
             // 时间选择器
             bridge.registerHandler('testJavascriptHandlerForTime', function (data, responseCallback) {
+                data = angular.fromJson(data);
                 $scope.$apply(function () {
                     angular.forEach(vm.flowCfg.formJson, function (item) {
                         if (item.type == 'dateRange') {
@@ -73,6 +77,7 @@
             });
             // 日期选择器
             bridge.registerHandler('HandlerForData', function (data, responseCallback) {
+                data = angular.fromJson(data);
                 $scope.$apply(function () {
                     angular.forEach(vm.flowCfg.formJson, function (item) {
                         if (item.type == 'dateRange') {
@@ -133,10 +138,10 @@
         })
 
         function saveEvent() {
-            if(!formValidate()) {
-              return;
+            if (!formValidate()) {
+                return;
             }
-            if(vm.approveList.length == 0) {
+            if (vm.approveList.length == 0) {
                 vm.showToast('请选择审批人');
                 return;
             }
